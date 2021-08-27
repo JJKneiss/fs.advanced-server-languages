@@ -1,0 +1,13 @@
+{% extends 'layouts/_default.twig' %}
+{% block title %}Show Choice{% endblock %}
+{% block main_content %}
+    <section>
+        <h2>Show Choice</h2>
+        <a href="/choices">Back</a>
+        <article>
+            <h3>{{ choice.name }}</h3>
+            <p>Id: {{ choice.id }}</p>
+        </article>
+        <a href="/choices/{{ choice.id }}/edit">Edit</a> | <a href="/choices/{{ choice.id }}/delete">Delete</a>
+    </section>
+{% endblock %}

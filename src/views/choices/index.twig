@@ -1,0 +1,16 @@
+{% extends 'layouts/_default.twig' %}
+{% block title %}List All Choices {% endblock %}
+{% block main_content %}
+  <section>
+    <h2>All Choices</h2>
+    <ul>
+      {% for c in choices %}
+      <li>
+      <a href="/choices/{{ c.id }}">{{ c.name }}</a> - 
+      <a href="/choices/{{ c.id }}/edit">Edit</a> | <a href="/choices/{{ c.id }}/delete">Delete</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <a href="/choices/new">Create a new choice</a>
+  </section>
+{% endblock %}

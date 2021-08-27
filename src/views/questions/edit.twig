@@ -1,0 +1,9 @@
+{% extends 'layouts/_default.twig' %}
+{% block title %}Edit a Question{% endblock %}
+{% block main_content %}
+    <section>
+        <h2>Edit Question</h2>
+        <a href="/questions">Back</a>
+        {% include 'questions/_form.twig' with { 'question': question } %}        
+    </section>
+{% endblock %}

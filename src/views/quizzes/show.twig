@@ -1,0 +1,14 @@
+{% extends 'layouts/_default.twig' %}
+{% block title %}Show Quiz{% endblock %}
+{% block main_content %}
+    <section>
+        <h2>Show Quiz</h2>
+        <a href="/quizzes">Back</a>
+        <article>
+            <h3>{{quiz.name}}</h3>
+            <p>Id: {{quiz.id}}</p>
+            <p>Weight: {{quiz.weight}}%</p>
+        </article>
+        <a href="/quizzes/{{quiz.id}}/edit">Edit</a> | <a href="/quizzes/{{quiz.id}}/delete">Delete</a>
+    </section>
+{% endblock %}

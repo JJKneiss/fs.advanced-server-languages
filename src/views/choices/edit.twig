@@ -1,0 +1,9 @@
+{% extends 'layouts/_default.twig' %}
+{% block title %}Edit a Choice{% endblock %}
+{% block main_content %}
+    <section>
+        <h2>Edit Choice</h2>
+        <a href="/choices">Back</a>
+        {% include 'choices/_form.twig' with { 'choice': choice } %}        
+    </section>
+{% endblock %}

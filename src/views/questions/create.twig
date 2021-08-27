@@ -1,0 +1,8 @@
+{% extends 'layouts/_default.twig' %}
+{% block title %}Create a new Question{% endblock %}
+{% block main_content %}
+    <section>
+        <h2>Create Question</h2>
+        {% include 'questions/_form.twig' with { 'question': question } %}        
+    </section>
+{% endblock %}
