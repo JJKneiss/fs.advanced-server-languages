@@ -3,10 +3,14 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/auth/login">Login</a></li>
+            {% if (isLoggedIn) %}
+            <li><a href="/auth/login">Logout</a></li>
             <li><a href="/quizzes">Quizzes</a></li>
             <li><a href="/questions">Questions</a></li>
             <li><a href="/choices">Choices</a></li>
+            {% else %}
+            <li><a href="/auth/login">Login</a></li>
+            {% endif %}
         </ul>
     </nav>
 </header>

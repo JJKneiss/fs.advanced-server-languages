@@ -1,63 +1,70 @@
 const express = require('express');
 const router = express.Router();
 const { Choice } = require('../models');
+const { isAuthenticated } = require('../middlewares/auth');
 
 // Index
-router.get('/', async (req, res) => {
+router.get('/', isAuthenticated, async (req, res) => {
     let choices = await Choice.findAll();
-    res.render('choices/index', { choices });
+    if (req.headers.accept.indexOf('/json') > -1) {
+        res.json(choices);
+    }
+    else res.render('choices/index', { choices, isLoggedIn: true });
 });
 
 // Create choices
-router.post('/', async (req, res) => {
+router.post('/', isAuthenticated, async (req, res) => {
     let choice = await Choice.create(req.body);
-    console.log(choice);
-    res.redirect('/choices');
+    if (req.headers.accept.indexOf('/json') > -1) {
+        res.json(choice);
+    }
+    else res.redirect('/choices');
 });
 // Create choices form
-router.get('/new', async (req, res) => {
+router.get('/new', isAuthenticated, async (req, res) => {
     res.render('choices/create');
 });
 
 // Show choices
-router.get('/:id', async (req, res) => {
+router.get('/:id', isAuthenticated, async (req, res) => {
     const choice = await Choice.findByPk(Number(req.params.id));
-    console.log(choice);
-    res.render('choices/show', { choice });
+    if (req.headers.accept.indexOf('/json') > -1) {
+        res.json(choice);
+    }
+    else res.render('choices/show', { choice, isLoggedIn: true });
 });
 
 // Update choices
-router.post('/:id', async (req, res) => {
+router.post('/:id', isAuthenticated, async (req, res) => {
     let choice = await Choice.update(req.body, {
         where: { id: Number(req.params.id) }
     });
     choice = await Choice.findByPk(Number(req.params.id));
-    res.render('choices/edit', { choice });
+    if (req.headers.accept.indexOf('/json') > -1) {
+        res.json(choice);
+    }
+    else res.render('choices/edit', { choice, isLoggedIn: true });
 });
 // Edit Quiz Form
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', isAuthenticated, async (req, res) => {
     let choice = await Choice.update(req.body, {
         where: {
             id: Number(req.params.id)
         }
     });
     choice = await Choice.findByPk(Number(req.params.id));
-    res.render('choices/edit', { choice });
+    res.render('choices/edit', { choice, isLoggedIn: true });
 });
 
 // Delete choices
-router.delete('/:id', async (req, res) => {
-    const deleted = await Choice.destroy({
-        where: { id: Number(req.params.id) }
-    });
-    res.redirect('/choices');
-});
-// Delete choices
-router.get('/:id/delete', async (req, res) => {
+router.get('/:id/delete', isAuthenticated, async (req, res) => {
     const deleted = await Choice.destroy({
         where: { id: Number(req.params.id) }
     })
-    res.redirect('/choices');
+    if (req.headers.accept.indexOf('/json') > -1) {
+        res.json(deleted);
+    }
+    else res.redirect('/choices');
 });
 // Export
 module.exports = router;
