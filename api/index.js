@@ -1,13 +1,14 @@
-// Create Express 
+// Create Express, App, & Port
 const express = require('express');
 const app = new express();
+const port = process.env.PORT || 3001;
 
 // Require & Define Page, Auth, and API Paths
-const pageRouter = require('./src/controllers/page');
-const authCtrl = require('./src/controllers/auth');
-const quizCtrl = require('./src/controllers/quiz');
-const questionCtrl = require('./src/controllers/question');
-const choiceCtrl = require('./src/controllers/choice');
+const pageRouter = require('../api/src/controllers/page');
+const authCtrl = require('../api/src/controllers/auth');
+const quizCtrl = require('../api/src/controllers/quiz');
+const questionCtrl = require('../api/src/controllers/question');
+const choiceCtrl = require('../api/src/controllers/choice');
 
 // Create User Session
 const session = require('express-session');
@@ -32,8 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set('views', __dirname + '/src/views');
 app.set('view engine', 'twig');
 
-
-// Page Routes
+// Use Page Routes
 app.use('/', pageRouter);
 
 // Authentication Route
@@ -44,4 +44,6 @@ app.use('/quizzes', quizCtrl);
 app.use('/questions', questionCtrl);
 app.use('/choices', choiceCtrl);
 
-app.listen(3000);
+
+// Run Server
+app.listen(port, () => console.log(`listening at port ${port}`));

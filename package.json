@@ -2,10 +2,11 @@
   "name": "asl-restful-api",
   "version": "1.0.0",
   "description": "ASL RESTful API Project for August",
-  "main": "index.js",
+  "main": "./api/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -e js,twig --watch index.js --watch src"
+    "client": "cd client && npm start",
+    "api": "nodemon -e js,twig --watch api/index.js --watch api/src",
+    "dev": "concurrently --kill-others-on-fail \"npm run api\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "twig": "^1.15.4"
   },
   "devDependencies": {
+    "concurrently": "^6.2.1",
     "nodemon": "^2.0.12",
     "sequelize-cli": "^6.2.0"
   }
